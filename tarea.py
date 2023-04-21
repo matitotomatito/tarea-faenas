@@ -92,3 +92,5 @@ while resp < 5:
                     c1 -= 1
                     c2 -= 1
                     c3 -= 1
+else:
+    print("poto")
