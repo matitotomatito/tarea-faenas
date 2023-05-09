@@ -13,15 +13,18 @@ while resp < 5:
         print("1-Crear plan 2-Ingresar datos de produccion 3-Calcular produccion total de una faena especifica 4-Calcular procuccion total dia X de todas las faenas 5-Salir")
     resp = int(input(":"))
     if resp < 1:
-        print("pollo xuxetu")
-        break
+        print("\nNUMERO INVALIDO\n")
+        print("1-Crear plan 2-Ingresar datos de produccion 3-Calcular produccion total de una faena especifica 4-Calcular procuccion total dia X de todas las faenas 5-Salir")
+        continue
     if resp == 1 :
         print("-------------------------------------------------------\n")
         print("                     Crear Plan\n")
         print("-------------------------------------------------------\n")
         faenas=int(input("Introduce el numero de faenas(minas): "))
         dias=int(input("Introduce la cantidad de dias: "))
-        #poner que si te pone una faena o un dia menor a 1 que te mande a la chucha
+        if faenas < 1 or dias < 1:
+            print("NUMERO INVALIDO")
+            break
         print("                     Plan de produccion")
         print("-------------------------------------------------------")
         contador = 1
@@ -39,15 +42,16 @@ while resp < 5:
         print("-------------------------------------------------------\n")
         c1 = 1
         continue
-    elif resp == 2 and c1 == 1:
-        #aca te pregunta las toneladas
+    if resp == (2,3,4) and c1 != 1:
+        print("Plan de produccion no encontrado")
+        continue
+    if resp == 2 and c1 == 1:
         contador_relleno_faenas,contador_relleno_dias = [0] * 2
         relleno = []
         while contador_relleno_dias < dias:
             for i in range(0,faenas):
                 for abcde in range(0,dias):
                     relleno.append(int(input(f"introduce la produccion del dia {contador_relleno_faenas+1}: ")))
-                    print(f"{relleno[contador_relleno_faenas]} añadido al dia {contador_relleno_faenas+1}")
                     contador_relleno_faenas += 1
                     contador_relleno_dias += 1
                     if contador_relleno_faenas == faenas:
@@ -75,22 +79,31 @@ while resp < 5:
                     print(f"faena {contador2} " + f"{output2}")
                     contador2 += 1  
                     ini_range = ini_range + dias
-                    fin_range = fin_range + dias 
+                    fin_range = fin_range + dias
         print("\n-------------------------------------------------------\n")
-        #ahora toca calcular esta wea, y para eso vuelvo a tratar el relleno original con la linea de output y 
-        #trabajo denuevo con rangos y probablemente tambien sumandole como contadores a las variables del rango
-        while resp == 3 and c2 == 1:
-            print("aca te printea la produccion total de una faena")
-            print("aca te pregunta si quieres calcular la produccion de un dia en especifico")
-            c3 += 1    
-            while resp == 4 and c3 == 1:
-                print("aca te pregunta que dia quieres calcular la faena total")
-                print("aca te printea la produccion total de todas faenas del dia en especifico")
-                print("aca te pregunta si quieres calcular otro dia o si en cambio quieres empezar denuevo")
-                if resp == 1 or 2 or 5:
-                    print("si quiere empezar denuevo resetea los confirmadores")
-                    c1 -= 1
-                    c2 -= 1
-                    c3 -= 1
-else:
-    print("poto")
+        continue
+    if resp == 3 and c2 == 1:
+        faena_cal = int(input("faena a calcular: "))
+        rango1 = int(faena_cal*faenas)
+        rango2 = int((faena_cal*faenas)+dias)
+        rango_cal = relleno[rango1:rango2]
+        produccion_total_faena = sum(relleno[rango1:rango2])
+        print(f"la produccion total de la faena {faena_cal} es: {produccion_total_faena}\n")
+        c3 = 1
+        continue
+    if resp == 4 and c2 == 1:
+        dia_cal = int(input("dia a calcular: "))
+        poto = []
+        r1 = 1
+        while dia_cal >= r1:
+            poto.append(relleno[(r1*dia_cal)-1])
+            r1 += 1
+        produccion_total_dia = sum(poto)
+        print(f"la produccion total del dia {dia_cal} es: {produccion_total_dia}\n")
+        c4 = 1
+        continue
+    if resp == 5:
+        print("hasta luego")
+        break
+    elif resp > 5:
+        print("\nNUMERO INVALIDO\n")
